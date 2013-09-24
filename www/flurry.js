@@ -1,4 +1,4 @@
-var exec = require("exec");
+var exec = require("cordova/exec");
 
 function Flurry() {
 // do nothing
