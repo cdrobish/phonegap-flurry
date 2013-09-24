@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.phonegap.plugins.flurry"
+    version="1.0.0">
+
+    <name>Flurry</name>
+    <description>Flurry API wrapper.</description>
+    <license>MIT</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>    
+
+    <js-module src="www/flurry.js" name="Flurry">
+        <clobbers target="cordova.plugins.Flurry" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <header-file src="src/ios/CDVFlurry.h" />
+        <source-file src="src/ios/CDVFlurry.m" />
+
+        <framework src="Security.framework" />
+        <framework src="SystemConfiguration.framework" />
+    </platform>
+
+</plugin>
