@@ -14,17 +14,39 @@
 #pragma mark Session
 - (void)startSession:(CDVInvokedUrlCommand *)command
 {
-    [self sendNonImplementedErrorResult:command];
+    NSString* key = [command.arguments objectAtIndex:0];
+    if (key != nil) {
+        // enable event logging
+        [Flurry setEventLoggingEnabled:YES];
+        
+        [Flurry startSession:key];
+        [self sendOKResult:command];
+    } else {
+        [self sendErrorResult:command WithMessage:@"App key was null."];
+    }
 }
 
 - (void)startSessionWithOptions:(CDVInvokedUrlCommand *)command
 {
-    [self sendNonImplementedErrorResult:command];
+    NSString* key = [command.arguments objectAtIndex:0];
+    NSDictionary* options = [command.arguments objectAtIndex:1];
+    if (options == nil) {
+        [self startSession:command];
+    } else if (key == nil) {
+        [self sendErrorResult:command WithMessage:@"App key was null."];
+    } else {
+        // enable event logging
+        [Flurry setEventLoggingEnabled:YES];
+        
+        [Flurry startSession:key withOptions:options];
+        [self sendOKResult:command];
+    }
 }
 
 - (void)pauseBackgroundSession:(CDVInvokedUrlCommand *)command
 {
-    [self sendNonImplementedErrorResult:command];
+    [Flurry pauseBackgroundSession];
+    [self sendOKResult:command];
 }
 
 #pragma mark Pre-session Calls
@@ -45,7 +67,9 @@
 
 - (void)setDebugLogEnabled:(CDVInvokedUrlCommand *)command
 {
-    [self sendNonImplementedErrorResult:command];
+    BOOL enabled = [[command.arguments objectAtIndex:0] boolValue];
+    [Flurry setDebugLogEnabled:enabled];
+    [self sendOKResult:command];
 }
 
 - (void)setLogLevel:(CDVInvokedUrlCommand *)command
@@ -172,7 +196,8 @@
 
 - (void)logPageView:(CDVInvokedUrlCommand *)command
 {
-    [self sendNonImplementedErrorResult:command];
+    [Flurry logPageView];
+    [self sendOKResult:command];
 }
 
 #pragma mark User info
@@ -215,7 +240,9 @@
 
 - (void)setEventLoggingEnabled:(CDVInvokedUrlCommand *)command
 {
-    [self sendNonImplementedErrorResult:command];
+    BOOL enabled = [[command.arguments objectAtIndex:0] boolValue];
+    [Flurry setEventLoggingEnabled:enabled];
+    [self sendOKResult:command];
 }
 
 - (void)setPushToken:(CDVInvokedUrlCommand *)command

@@ -4,6 +4,21 @@ function Flurry() {
 // do nothing
 }
 
+/**
+ * Caution: It will enable the event logging by default
+ */
+Flurry.prototype.startSession = function (apiKey, options, success, error) {
+    if (!options) {
+        exec(success, error, 'Flurry', 'startSession', [apiKey]);
+    } else {
+        exec(success, error, 'Flurry', 'startSessionWithOptions', [apiKey, options]);
+    }
+};
+
+Flurry.prototype.setDebugLogEnabled = function (enable, success, error) {
+    exec(success, error, 'Flurry', 'setDebugLogEnabled', [enable]);
+};
+
 Flurry.prototype.logEvent = function (event, parameters, timed, success, error) {
     var callTimed = typeof timed !== 'undefined' && timed !== null;
     var callParameters = typeof parameters !== 'undefined' && parameters !== null;
