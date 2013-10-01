@@ -7,7 +7,6 @@
 //
 
 #import "CDVFlurry.h"
-#import "Flurry.h"
 
 @implementation CDVFlurry
 
