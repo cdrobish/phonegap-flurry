@@ -16,9 +16,9 @@
     NSString* key = [command.arguments objectAtIndex:0];
     if (key != nil) {
         // enable event logging
-        [Flurry setEventLoggingEnabled:YES];
+        [self setEventLoggingEnabled:YES];
         
-        [Flurry startSession:key];
+        [self startSession:key];
         [self sendOKResult:command];
     } else {
         [self sendErrorResult:command WithMessage:@"App key was null."];
@@ -35,16 +35,16 @@
         [self sendErrorResult:command WithMessage:@"App key was null."];
     } else {
         // enable event logging
-        [Flurry setEventLoggingEnabled:YES];
+        [self setEventLoggingEnabled:YES];
         
-        [Flurry startSession:key withOptions:options];
+        [self startSession:key withOptions:options];
         [self sendOKResult:command];
     }
 }
 
 - (void)pauseBackgroundSession:(CDVInvokedUrlCommand *)command
 {
-    [Flurry pauseBackgroundSession];
+    [self pauseBackgroundSession];
     [self sendOKResult:command];
 }
 
@@ -67,7 +67,7 @@
 - (void)setDebugLogEnabled:(CDVInvokedUrlCommand *)command
 {
     BOOL enabled = [[command.arguments objectAtIndex:0] boolValue];
-    [Flurry setDebugLogEnabled:enabled];
+    [self setDebugLogEnabled:enabled];
     [self sendOKResult:command];
 }
 
@@ -99,7 +99,7 @@
 {    
     NSString* eventName = [command.arguments objectAtIndex:0];
     if (eventName != nil) {
-        [Flurry logEvent:eventName];
+        [self logEvent:eventName];
         [self sendOKResult:command];
     } else {
         [self sendErrorResult:command WithMessage:@"Event name was null."];
@@ -120,7 +120,7 @@
     } else if (eventName == nil) {
         [self sendErrorResult:command WithMessage:@"Event name was null."];
     } else {
-        [Flurry logEvent:eventName withParameters:parameters];
+        [self logEvent:eventName withParameters:parameters];
         [self sendOKResult:command];
     }
 }
@@ -142,7 +142,7 @@
     if (eventName == nil) {
         [self sendErrorResult:command WithMessage:@"Event name was null."];
     } else {
-        [Flurry logEvent:eventName timed:timed];
+        [self logEvent:eventName timed:timed];
         [self sendOKResult:command];
     }
 }
@@ -164,7 +164,7 @@
     } else if (eventName == nil) {
         [self sendErrorResult:command WithMessage:@"Event name was null."];
     } else {
-        [Flurry logEvent:eventName withParameters:parameters timed:timed];
+        [self logEvent:eventName withParameters:parameters timed:timed];
         [self sendOKResult:command];
     }
 }
@@ -182,7 +182,7 @@
     if (eventName == nil) {
         [self sendErrorResult:command WithMessage:@"Event name was null."];
     } else {
-        [Flurry endTimedEvent:eventName withParameters:parameters];
+        [self endTimedEvent:eventName withParameters:parameters];
         [self sendOKResult:command];
     }
 }
@@ -195,7 +195,7 @@
 
 - (void)logPageView:(CDVInvokedUrlCommand *)command
 {
-    [Flurry logPageView];
+    [self logPageView];
     [self sendOKResult:command];
 }
 
@@ -240,7 +240,7 @@
 - (void)setEventLoggingEnabled:(CDVInvokedUrlCommand *)command
 {
     BOOL enabled = [[command.arguments objectAtIndex:0] boolValue];
-    [Flurry setEventLoggingEnabled:enabled];
+    [self setEventLoggingEnabled:enabled];
     [self sendOKResult:command];
 }
 
